@@ -80,7 +80,6 @@ const SubSectionModal = ({
 
 
     const formData = new FormData();
-    console.log("FORM DATA>>>>>>>",data.lectureTitle," .......... ",data.title,"\nLecture video ......", data.lectureVideo,"\nModalDATA......",[modalData])
     formData.append("sectionId", modalData);
         formData.append("title", data.title);
         formData.append("description", data.lectureDesc);

@@ -17,7 +17,7 @@ const ReviewSlider = () => {
             setLoading(true)
             try {
                 const res = await apiConnector("GET", REVIEWS_DETAILS_API);
-                console.log("GET REVIEW API RESPONSE............", res);
+                // console.log("GET REVIEW API RESPONSE............", res);
                 if (!res) {
                     toast.error("Review fetching failed.......", { id: toastId });
                 } else {

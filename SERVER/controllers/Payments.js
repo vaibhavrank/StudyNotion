@@ -15,12 +15,10 @@ const { encode } = require("punycode");
 exports.createPayment = async(req,res)=>{
   
     const {courses} = req.body;
-  console.log("REQUEST BODY AT CREATE PAYMENT............",courses)
   const useId = req.user.id;
   if(courses.length === 0 ){
     return res.json({success:false,message:"Please Provide Course Id"});
   }
-  console.log("CONTROLLER CALLED........",courses,useId);
   let totalAmount= 0;
   for(const course_id of courses){
     let course;
@@ -50,7 +48,6 @@ exports.createPayment = async(req,res)=>{
       })
     }
   }
-  console.log("TOTAL AMOUNT...........",totalAmount)
   const currency="INR";
   const options = {
     amount:totalAmount*100,
@@ -86,7 +83,6 @@ exports.verifySignature = async (req,res) => {
     const razorpay_signature = req.body?.razorpay_signature;
     const courses = req.body.courses;
     const userId = req.user.id;
-    console.log("PAYMENT VERIFICATION BODY ",req.body);
     if(!razorpay_order_id || !razorpay_payment_id
       ||!razorpay_signature ||!courses){
         return res.status(404).json({
@@ -96,7 +92,6 @@ exports.verifySignature = async (req,res) => {
       }
     
     const body = razorpay_order_id +  "|" + razorpay_payment_id;
-    console.log("CREATING THE CRYPTO..........",body,body.toString())
     const expectedSignature = crypto.createHmac("sha256",process.env.REZORPAY_SECRET)
     .update(body.toString())
     .digest("hex");
@@ -154,7 +149,6 @@ const enrollStudents = async (courses,userId,res)=>{
       `Successfully Enrolled into ${enrollmentCourse.courseName}`,
       courseEnrollmentEmail(enrollmentCourse.courseName,`${studentEnrolled.firstName}`)
       ) 
-      console.log("Email sent successfully",emailResponse);
 
 
     } catch (error) {
@@ -186,7 +180,6 @@ exports.sendPaymentSuccessEmail = async(req, res) =>{
       paymentsuccessEmail(`${enroolledStudent.firstName}`,amount/100,orderId,paymentId)
     )
   } catch (error) {
-    console.log("error in sending email",error)
     return res.status(500).json({
       sucess:false,
       message:"Could not sent email"
@@ -254,7 +247,6 @@ exports.sendPaymentSuccessEmail = async(req, res) =>{
 //         try{
 //             //initiate teh payment using raxorpay
 //             const paymentResponse  = await instance.orders.create(options);
-//             console.log(paymentResponse);
 //             res.status(200).json({
 //                 success:true,
 //                 coueseName:course.courseName,
@@ -288,7 +280,6 @@ exports.sendPaymentSuccessEmail = async(req, res) =>{
 //     shasum.update(JSON.stringify(req.vody));
 //     const digest = shasum.digest("hex");
 //     if(signature==digest){
-//         console.log("Payment is Authorize");
 //         const {courseId,userID} = req.body.payload.payment.entity.notes;
 //         try{
 //             //fulfill the action
@@ -305,28 +296,24 @@ exports.sendPaymentSuccessEmail = async(req, res) =>{
 //                 });
 //             }
 
-//             console.log(enrolledCourse);
-//             //update teh student's course
+  //             //update teh student's course
 //             const enrolledstudent = await User.findOneAndUpdate(
 //                 {_id:userID},
 //                 {$pus:{courses:courseId}},
 //                 {new:true},
 //             );
-//             console.log(enrolledstudent);
 //             //confirmation mail send krna hai
 //             const emailResponse = await mailSender(
 //                 enrolledstudent.email,
 //                 "Congratulations from Codehelp",
 //                 "Congratulation , you are onboarde into new codehelp courese"
 //             )
-//             console.log(emailResponse);
 //             return res.status(200).json({
 //                 success:true,
 //                 message:"Signature Varified and course Added",
 //             });
 
 //         }catch(error){
-//             console.log(error);
 //             return res.json({
 //                 success:false,
 //                 message:'Please provide valid course Id',
@@ -363,7 +350,6 @@ exports.sendPaymentSuccessEmail = async(req, res) =>{
 //         )
 //       )
 //     } catch (error) {
-//       console.log("error in sending mail", error)
 //       return res
 //         .status(400)
 //         .json({ success: false, message: "Could not send email" })
@@ -392,7 +378,6 @@ exports.sendPaymentSuccessEmail = async(req, res) =>{
 //             .status(500)
 //             .json({ success: false, error: "Course not found" })
 //         }
-//         console.log("Updated course: ", enrolledCourse)
   
 //         const courseProgress = await CourseProgress.create({
 //           courseID: courseId,
@@ -411,7 +396,6 @@ exports.sendPaymentSuccessEmail = async(req, res) =>{
 //           { new: true }
 //         )
   
-//         console.log("Enrolled student: ", enrolledStudent)
 //         // Send an email notification to the enrolled student
 //         const emailResponse = await mailSender(
 //           enrolledStudent.email,
@@ -422,7 +406,6 @@ exports.sendPaymentSuccessEmail = async(req, res) =>{
 //           )
 //         )
   
-//         console.log("Email sent successfully: ", emailResponse.response)
 //       } catch (error) {
 //         console.log(error)
 //         return res.status(400).json({ success: false, error: error.message })

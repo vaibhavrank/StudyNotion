@@ -47,7 +47,6 @@ app.use("/api/v1/payment",paymentRoutes);
 
 //default route
 app.get("/",(req,res)=>{
-    // console.log("APP STARTED>>>>>>>>>>>>>>>")
     return res.json({
         success:true,
         message:"Your server is Up and runnig....!",

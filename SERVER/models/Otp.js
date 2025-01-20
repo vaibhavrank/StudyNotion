@@ -27,14 +27,11 @@ async function sendVerificationEmail(email, otp) {
 
 	// Send the email
 	try {
-        // console.log("Entered");
-        // console.log(email);
 		const mailResponse = await mailSender(
 			email,
 			"Verification Email",
 			emailTemplate(otp)
 		);
-		// console.log("Email sent successfully: ", mailResponse);
 	} catch (error) {
 		console.log("Error occurred while sending email: ", error);
 		throw error;
@@ -42,7 +39,6 @@ async function sendVerificationEmail(email, otp) {
 }
 
 optSchema.pre("save",async function(next){
-    // console.log(this.email);
     await sendVerificationEmail(this.email,this.otp);
     next(); 
 })

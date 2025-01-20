@@ -17,9 +17,7 @@ exports.auth = async (req,res,next)=>{
 
         //verify the token
         try{
-            // console.log(token)
             const decode = jwt.verify(token, process.env.JWT_SECRET);
-            console.log(decode);
             req.user = decode;
             next();
         }catch(error){
@@ -48,7 +46,6 @@ exports.isStudent = async (req,res,next)=>{
             });
             
         }
-        console.log("STUDENT CALLED............")
         next();
     } catch (error) {
         res.status(500).json({
@@ -78,7 +75,6 @@ exports.isInstructor = async (req,res,next) =>{
 //isAdmin
 exports.isAdmin = async (req,res,next) =>{
     try {
-        console.log(req.user.accountType)
         if(req.user.accountType!="Admin"){
             return res.status(401).json({
                 success:false,
