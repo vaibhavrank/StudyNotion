@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin:"http://localhost:3000",
+        origin:"https://study-notion-36vyoqy93-vaibhav-ranks-projects.vercel.app",
         credentials:true,
     })
 );
