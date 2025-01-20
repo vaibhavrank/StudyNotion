@@ -13,7 +13,6 @@ exports.createCourse = async (req,res)=>{
     try{
         //get data
         const {status,courseName,instructions, courseDescription, whatYouWillLearn,category, price,tag } = req.body;
-        // console.log(req.files);
         //get all thumbnail
         const thumbnail = req.files.thumbnailImage;
         //validation
@@ -23,11 +22,9 @@ exports.createCourse = async (req,res)=>{
                 message:"All feilds are required",
             });
         } 
-        console.log("Request body at Create Course...........",req.body);
         //check for instructor
         const userId = req.user.id;
         const instructorDatails = await User.findById(userId); 
-        // console.log("Instructor Deatils: ",instructorDatails);
 
         if(!instructorDatails){
             return res.status(404).json({
@@ -36,7 +33,6 @@ exports.createCourse = async (req,res)=>{
             })
         }
         //validation of tag
-        // console.log("Category at ")
         let categoryDetails = await Category.findById(category);
         if(!categoryDetails){
             return res.status(404).json({
@@ -55,7 +51,6 @@ exports.createCourse = async (req,res)=>{
 
         const parsedTags = Array.isArray(tag) ? tag : JSON.parse(tag);
 
-        console.log("Thumbnail image upload response......")//,thumbnailImage);
         const newCourse = await Course.create({
             courseName:courseName,
             courseDescription,
@@ -73,8 +68,6 @@ exports.createCourse = async (req,res)=>{
             $push:{courses:newCourse._id},
           }
         )
-        console.log("New course that is added...........",newCourse);
-        // console.log("Category updated..........",categoryDetails)
         //add the new course in user schema
         await User.findByIdAndUpdate(
             {_id:instructorDatails._id},
@@ -144,7 +137,6 @@ exports.editCourse = async (req, res) => {
   
       // If Thumbnail Image is found, update it
       if (req.files) {
-        console.log("thumbnail update")
         const thumbnail = req.files.thumbnailImage
         const thumbnailImage = await uploadImageToCloudinary(
           thumbnail,
@@ -290,7 +282,6 @@ exports.getFullCourseDetails = async (req, res) => {
         userID: userId,
       })
       
-      console.log("courseProgressCount : ", courseProgressCount)
   
       if (!courseDetails) {
         return res.status(400).json({
@@ -315,7 +306,6 @@ exports.getFullCourseDetails = async (req, res) => {
       })
   
       const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
-      console.log("TOTAL DURATION................",totalDurationInSeconds)
       return res.status(200).json({
         success: true,
         data: {
@@ -448,7 +438,6 @@ exports.getInstructorCourses = async (req, res) => {
 
   exports.markLectureAsComplete = async (req, res) => {
     const { courseId, subSectionId, userId } = req.body
-    console.log("FUNCTION CALLLLED.............................")
     if (!courseId || !subSectionId || !userId) {
       return res.status(400).json({
       success: false,

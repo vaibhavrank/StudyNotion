@@ -82,10 +82,8 @@ exports.deleteAccount = async (req,res) =>{
 //fetch the Profile
 exports.getAllUserDetails = async (req,res) => {
     try {
-      console.log("YESSSSSSSSSS");
         const id = req.user.id;
         const userDetails = await User.findById(id).populate("additionalDetails").exec();
-        console.log(userDetails);
         if(!userDetails){
           return res.status(404).json({
             success:false,
@@ -110,7 +108,6 @@ exports.getAllUserDetails = async (req,res) => {
 exports.updateDisplayPicture = async (req, res) => {
     try {
       const displayPicture = req.files.pfp
-      // console.log("DISPLYA PICTURE: ",displayPicture)
       const userId = req.user.id
       const image = await uploadImageToCloudinary(
         displayPicture,
@@ -118,7 +115,6 @@ exports.updateDisplayPicture = async (req, res) => {
         1000,
         1000
       )
-      // console.log(image)
       const updatedProfile = await User.findByIdAndUpdate(
         { _id: userId },
         { image: image.secure_url },
@@ -140,7 +136,6 @@ exports.updateDisplayPicture = async (req, res) => {
   
   exports.getEnrolledCourses = async (req, res) => {
     try {
-      console.log("BACKEND CALLED FOR GET ENROLLED>>>>>>>>>>>>>>>")
       const userId = req.user.id
       
       let userDetails = await User.findOne({ _id: userId })
@@ -155,7 +150,6 @@ exports.updateDisplayPicture = async (req, res) => {
                                             .exec();
 
         userDetails = userDetails.toObject()
-        // console.log("USER DETAILS OBJECT..............",userDetails.courses.courseSection);
       var SubsectionLength = 0
       for (var i = 0; i < userDetails?.courses.length; i++) {
         let totalDurationInSeconds = 0
@@ -166,7 +160,6 @@ exports.updateDisplayPicture = async (req, res) => {
           ].subSection.reduce((acc, curr) => acc + parseInt(curr.timeduration), 0);
 
 
-          console.log("totla DURATION..................",totalDurationInSeconds);
           userDetails.courses[i].totalDuration = (totalDurationInSeconds);
           SubsectionLength +=
             userDetails.courses[i].courseSection[j].subSection.length
@@ -176,22 +169,18 @@ exports.updateDisplayPicture = async (req, res) => {
           userID: userId,
         })
         courseProgressCount = courseProgressCount?.completedVideos.length
-        console.log("PROGRESS COUNT...............",courseProgressCount);
         if (SubsectionLength === 0) {
           userDetails.courses[i].progressPercentage = 100
         } else {
           // To make it up to 2 decimal point
           const multiplier = Math.pow(10, 2);
-          console.log("MATH FUNTION.........................", Math.round(
-            (courseProgressCount / SubsectionLength) * 100 * multiplier
-          ) / multiplier)
+          
           userDetails.courses[i].progressPercentage = 
            ( Math.round(
               (courseProgressCount / SubsectionLength) * 100 * multiplier
             ) / multiplier) || 0  
         }
       }
-      // console.log("User Detils at Backend ... ",userDetails);
       res.status(200).json({
         success: true,
         message: "User Data fetched successfully",

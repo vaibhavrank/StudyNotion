@@ -6,7 +6,6 @@ exports.createCategory = async (req,res) => {
         //fetch data
         const {name, description} = req.body;
         //validtion
-        console.log(name,description);
         if(!name||!description) {
             return res.json({
                 success:false,
@@ -18,7 +17,6 @@ exports.createCategory = async (req,res) => {
             name: name,
             description:description,
         });
-        console.log(catagoryDetails);
         return res.status(200).json({
             success: true,
             messsage:"Category created Successfully",
@@ -54,10 +52,8 @@ exports.showAllCategories = async (req,res) =>{
 exports.categoryPageDetails = async (req,res) => {
     try{
         //get category id catagoryId
-        console.log("REQUEST BODY......",req.body);
         const {catagoryId} =req.body;
         //fetch all teh course of that cataegory
-        console.log("CATAGORY ID AT BACKEND............",catagoryId)
         const selectedCatagory = await Category.findById(catagoryId)
                                                     .populate({
                                                         path:"courses",
@@ -70,7 +66,6 @@ exports.categoryPageDetails = async (req,res) => {
                                                         })
                                                     .exec();
 
-        console.log("SELECTED CATEGORY API RESULT.....",selectedCatagory);
         // validation
         if(!selectedCatagory){
             return res.status(404).json({
@@ -95,7 +90,6 @@ exports.categoryPageDetails = async (req,res) => {
                                     })
                                 .exec();
         //get top selling course
-        console.log("DIFFERENT CATEGORY .....",differentCatagory);
         // TODO
         const allCategories = await Category.find().populate({path:"courses",match:{status:"Published"},populate:([{path:"instructor"}]),populate:([{path:"ratingAndReview"}])});
 		const allCourses = allCategories.flatMap((category) => category.courses);
@@ -112,7 +106,6 @@ exports.categoryPageDetails = async (req,res) => {
              },
         }); 
     }catch(error){
-        console.log("ERROR AT CATEGORY PAGE DETAILS........",error);
         return res.status(500).json({
             success:false,
             message:error.message,

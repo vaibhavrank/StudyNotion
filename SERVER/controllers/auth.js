@@ -13,7 +13,6 @@ exports.sendOTP = async (req,res)=>{
     try{
          //fetch email from req bidy
         const {email} = req.body;
-        console.log(email);
 
         // check if user alderady exist
         const chaeckPresent = await User.findOne({email});
@@ -32,7 +31,7 @@ exports.sendOTP = async (req,res)=>{
             specialChars: false,
         });
   
-        console.log("OTP Generated");
+        ("OTP Generated");
 
         //check Unique otp or not
 
@@ -50,7 +49,7 @@ exports.sendOTP = async (req,res)=>{
 
         //create an entry in db
         const otpbody = await OTP.create(OTPplayload);
-        console.log("BODY:",otpbody);
+        console.log("OTPBODY:",otpbody);
         
         // return response
         res.status(200).json({
@@ -103,7 +102,6 @@ exports.signUp = async (req,res)=>{
         }
         //find most recent otp
         const recentOtp = await OTP.find({email}).sort({createdAt:-1}).limit(1);
-        console.log(recentOtp[0].otp);
         
         //validate OTP
         if(recentOtp.length==0){
@@ -114,7 +112,7 @@ exports.signUp = async (req,res)=>{
             });
         }else if(otp!==recentOtp[0].otp){
             //invalid otp
-            console.log(otp," : ",recentOtp[0].otp);
+          
             return res.status(401).json({
                 success:false,
                 message:"Invalid OTP",
@@ -166,7 +164,6 @@ exports.login = async (req,res) =>{
             });
         }
         //check usser exost or not
-        // console.log("LOGIN ROUTER FUNCTION CALLED.....",email," ",password);
         const user = await User.findOne({email:email}).populate("additionalDetails");
         if(!user){
             
@@ -175,7 +172,6 @@ exports.login = async (req,res) =>{
                 message:"User with this email id is not registered",
             });
         }
-        // console.log("USER FOund",user)
         //passward match
         if(await bcrypt.compare(password,user.password)){
             const payload= {
@@ -199,7 +195,6 @@ exports.login = async (req,res) =>{
 				message: `User Login Success`,
 			});
         }else{
-            // console.log()
             return res.status(401).json({
                 success:false,
                 message:"Passward is incorrect",
@@ -223,7 +218,6 @@ exports.changePassword = async (req, res) => {
 		// Get old password, new password, and confirm new password from req.body
 		const { oldPassword, newPassword, confirmPassword } = req.body;
         
-        console.log("BACKEND DETIALS: ",oldPassword);
 		// Validate old password
 		const isPasswordMatch = await bcrypt.compare(
 			oldPassword,
@@ -260,7 +254,6 @@ exports.changePassword = async (req, res) => {
 			{ password: encryptedPassword },
 			{ new: true }
 		); 
-        // console.log(passwordUpdated("NAME","EMAIL"));
 		// Send notification email
 		
         try {
@@ -269,7 +262,6 @@ exports.changePassword = async (req, res) => {
 				"Study Notion - Password Updated",
                 passwordUpdated(userDetails.email,`${userDetails.firstName} ${userDetails.lastName}`)
             );
-			// console.log("Email sent successfully:", emailResponse.response);
 		} catch (error) {
 			// If there's an error sending the email, log the error and return a 500 (Internal Server Error) error
 			console.error("Error occurred while sending email:", error);
