@@ -168,7 +168,7 @@ const CourseDetails = () => {
                                 (
                                     cart?.find((item) => item?._id === courseDetail?._id) ?
                                     (<button onClick={()=>{navigate("/dashboard/cart")}} className='blackButton bg-yellow-5  rounded-md px-3 py-2 text-black'>Go to Cart</button>) :
-                                    (<button onClick={handelAddToCart} className='blackButton bg-yellow-5 text-black rounded-md px-3 py-2'>Add to Cart</button>)
+                                    (<button onClick={handelAddToCart} className='blackButton bg-yellow-5 text-white rounded-md px-3 py-2'>Add to Cart</button>)
                                 )
                             }
                                 </>

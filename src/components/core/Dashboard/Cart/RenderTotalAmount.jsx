@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-// import { buyCourse } from '../../../../services/operations/studentFeaturesAPI';
+import { buyCourse } from '../../../../services/operations/studentFeaturesAPI';
 import IconBtn from '../../../common/IconBtn';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -15,15 +15,15 @@ const RenderTotalAmount = () => {
 
 
     const handleBuyCourse = () => {
-        // const courses = cart.map((course) => course._id);
-        // console.log("Bought these course:", courses);
-        // if(token){
-        //   const courses = cart.map((course) => course._id);
-        //   buyCourse(token,courses,user,navigate,dispatch);
-    //   }
-    //   else{
-        //   navigate('/login');
-    //   }
+        const courses = cart.map((course) => course._id);
+        console.log("Bought these course:", courses);
+        if(token){
+            const courses = cart.map((course) => course._id);
+            buyCourse(token,courses,user,navigate,dispatch);
+        }
+        else{
+            navigate('/login');
+        }
     }
   return (
     <div className='min-w-[280px] rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-3 md:p-6 '>

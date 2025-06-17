@@ -4,10 +4,10 @@ require("dotenv").config();
 const connect =   ()=>{
   try {    
     mongoose.connect(process.env.MONGODB_URL,{
-      serverSelectionTimeoutMS: 15000, 
+      serverSelectionTimeoutMS: 5000, 
     });
     console.log('MongoDB connected successfully');
-  } catch (error) {
+  } catch (error) { 
     console.log(process.env.MONGODB_URL);    
     console.error('MongoDB connection error: ', error);
     process.exit(1);    

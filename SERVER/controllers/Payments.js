@@ -14,7 +14,7 @@ const { encode } = require("punycode");
 //initiates the order of the razorpay payment website
 exports.createPayment = async(req,res)=>{
   
-    const {courses} = req.body;
+  const {courses} = req.body;
   const useId = req.user.id;
   if(courses.length === 0 ){
     return res.json({success:false,message:"Please Provide Course Id"});
@@ -32,9 +32,9 @@ exports.createPayment = async(req,res)=>{
       }
       // const uid = new mongoose.Types.ObjectId(useId);
       if(course.studentEnrolled.includes(useId)){
-        return res.status(200).json({
+        return res.status(200 ).json({
           success:false,
-          message:`Student is aldready Enrolled in ${course.courseName} course.`
+          message:`You have aldready Enrolled in ${course.courseName} course.`
         })
       }
       totalAmount+=course.price;
@@ -71,8 +71,7 @@ exports.createPayment = async(req,res)=>{
       message:"Internal Error:Could not initiate order of payment",
       error:error.message
     })
-  }
- 
+  } 
 }
 
 //verify signature of razorpay and server
@@ -87,8 +86,8 @@ exports.verifySignature = async (req,res) => {
       ||!razorpay_signature ||!courses){
         return res.status(404).json({
           success:false,
-          message:"Payment Failed due no Information..."
-        })
+          message:"Payment Failed due to no Information..."
+        });
       }
     
     const body = razorpay_order_id +  "|" + razorpay_payment_id;
@@ -96,7 +95,6 @@ exports.verifySignature = async (req,res) => {
     .update(body.toString())
     .digest("hex");
     
-
     if(expectedSignature==razorpay_signature){
       //enroll the student
       await enrollStudents(courses,userId,res);

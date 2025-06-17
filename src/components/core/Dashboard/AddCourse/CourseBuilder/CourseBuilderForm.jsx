@@ -82,7 +82,7 @@ const CourseBuilderForm = () => {
           setValue("sectionName", sectionName);
     }
     return (
-    <div className='text-white'>
+    <div className='text-white '>
         {/* Second step me apka swagat hai */}
         <p>Course Builder</p>
         <form onSubmit={handleSubmit(onSubmit)}>

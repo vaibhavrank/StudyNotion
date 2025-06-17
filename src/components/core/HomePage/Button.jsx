@@ -1,15 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { setProgress } from '../../../slices/loadingBarSlice'
+import { useDispatch } from 'react-redux'
+
 const Button = ({children,active,linkto}) => {
+    const dispatch = useDispatch();
   return (
-    <Link to={linkto} >
-        <div className={`text-center texxt-[13px] px-6 py-3 rounded-md font-bold
-        ${active ? "bg-yellow-50 text-black" : "bg-richblack-800"}
-        hover:scale-95 transition-all duration-100 `}>
-            {children}
+    <Link onClick={()=>{dispatch(setProgress(100))}}  to={linkto}>
+    <div className={`text-center text-[13px] px-6 py-3 rounded-md font-semibold 
+      ${active ? "bg-yellow-50 shadow-yellow-400 text-black" : "bg-richblack-800 shadow-richblack-400"} 
+      shadow-md  
+      hover:scale-95 transition-all duration-200`}>
+        {children}
         </div>
-    </Link>
+        </Link>
   )
 }
 
-export default Button;
+export default Button

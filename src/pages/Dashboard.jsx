@@ -14,9 +14,9 @@ const Dashboard = () => {
   }
   return (
     <div className='relative flex bg-richblack-400'>
-      <Sidebar className="h-full" />
-      <div className=' flex-1 overflow-auto bg-richblack-900'>
-          <div className=''>
+      <Sidebar className="h-full overflow-hidden" />
+      <div className=' flex-1  h-screen overflow-auto  bg-richblack-900'>
+          <div className=' '>
               <Outlet />
           </div>
       </div>

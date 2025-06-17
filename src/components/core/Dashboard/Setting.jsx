@@ -107,7 +107,7 @@ const Settings = () => {
 
   return (
     <div>
-      <div className=' flex-1 overflow-auto'>
+      <div className=' flex'>
         <div className='mx-auto w-11/12 max-w-[1000px] py-10'>
         <h1 className="mb-14 text-3xl font-medium text-richblack-5">Edit Profile</h1>
 

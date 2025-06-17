@@ -31,15 +31,15 @@ const TimeLineSection = () => {
     ]
 
   return (
-    <div>
-        <div className='flex flex-row gap-15 items-center'>
-            <div className='w-[45%] flex flex-col gap-5'>
+    
+        <div className='flex sm:flex-row flex-col justify-between gap-16 w-full  '>
+            <div className=' flex flex-col gap-5'>
                 {
                     timeline.map( (element,index ) =>{
                         return (
-                            <div className='flex flex-col items-start'>
+                            <div className='flex flex-col '>
                                 <div className='flex flex-row gap-6' key={index}>
-                                    <div className='w-[50px] h-[50px] bg-white flex items-center'>
+                                    <div className='w-[50px] h-[50px] rounded-full bg-white flex items-center justify-center'>
                                         <img src={element.Logo} />
                                     </div>
                                     <div>
@@ -47,13 +47,13 @@ const TimeLineSection = () => {
                                         <p className='text-base'>{element.Dsecription}</p>
                                     </div>
                                 </div>
-                                <div className={`${ index!=3 ? " ml-5 h-[50px] w-[3px] border-dashed  border-l-4" : "h-[0px] w-[0px]" }`}></div>
+                                <div className={`${ index!=3 ? " ml-6 h-[50px] w-[3px] border-dashed  border-l-4" : "h-[0px] w-[0px]" }`}></div>
                             </div>
                         )
                     })
                 }
             </div>
-            <div className='relative shadow-blue-200 '>
+            <div className='relative shadow-blue-200 mt-10  '>
                 <img src={timelineImage} 
                 alt='timeLineimage'
                 className='shadow-white object-cover h-[400px] ' />
@@ -73,7 +73,7 @@ const TimeLineSection = () => {
                 </div>
             </div>
         </div>
-    </div>
+    
   )
 }
 

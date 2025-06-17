@@ -6,15 +6,15 @@ import CTAButton from "../HomePage/Button"
 const InstructorSection = () => {
   return (
     <div className='mt-16'>
-        <div className=' flex flex-row gap-20 items-center'>
-            <div className='w-[50%] '>
+        <div className=' flex flex-col md:flex-row gap-20 items-center'>
+            <div className=''>
                 <img src={instructor} 
                 alt="Instructor image" 
                 className='shadow-white'
                 />
 
             </div>
-            <div className='w-[50%] flex flex-col gap-10'>
+            <div className='flex flex-col items-center gap-10'>
                 <div className='text-4xl font-semibold w-[50%]'>
                     Become an 
                     <HighlightText text={"Instructor"} />

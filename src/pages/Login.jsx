@@ -39,11 +39,11 @@ function Login() {
         <button onClick={
           () => {
             dispatch(login("rankvaibhav@gmail.com", "123", navigate)
-          )}
+          )} 
         } className="bg-yellow-100 font-semibold text-richblack-900 px-4 py-2 rounded-md flex">
           <TbCornerDownRightDouble className="text-2xl text-richblack-900 md:block hidden"/>
           Click here for Student Demo</button>
-        </div>
+        </div> 
         </div>
       </div>
     </div>

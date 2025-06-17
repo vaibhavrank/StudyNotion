@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Login from './pages/Login.jsx';
@@ -28,12 +28,18 @@ import CourseDetails from './pages/CourseDetails.jsx';
 import ViewCourse from './pages/ViewCourse.jsx';
 import VideoDetails from './components/core/Dashboard/ViewCourse/VideoDetails.jsx';
 import Instructor from './components/core/Dashboard/InstructorDashboard/Instructor.jsx';
+import ContactUsForm from './components/contactUs/ContactUsForm.jsx';
+import ContactUs from './pages/ContactUs.jsx';
 function App() {
   const {user} = useSelector((state) => state.profile)
   return (
 
-    <div className='w-screen min-h-screen custom-scrollbar bg-richblack-900 flex flex-col font-inter'>
+    <div className='w-screen h-full overflow-hidden  bg-richblack-900 flex flex-col font-inter'>
       <Navbar />
+      <div>
+        <Outlet />
+      </div>
+      {/* <Footex */}
       <Routes >
         <Route path='/' element={<Home />} />
         <Route
@@ -104,6 +110,7 @@ function App() {
               </>
             )
           }
+          {/* <Route path='*' element={<Error />} /> */}
         
         </Route>
 
@@ -126,6 +133,7 @@ function App() {
         <Route path='/catalog/:catalogName' element={<Catalog /> } />
         <Route path='/courses/:courseId' element={<CourseDetails /> } />
         <Route path="/about" element={<About />} />
+        <Route path='/contact' element={<ContactUs />} />
         <Route path='*' element={<Error />} />
       </Routes>
     </div>

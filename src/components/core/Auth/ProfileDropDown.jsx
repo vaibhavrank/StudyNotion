@@ -22,39 +22,49 @@ export default function ProfileDropdown() {
   } 
 
   return (
-    <button className="relative" onClick={() => setOpen(true)}>
-      <div className="flex items-center gap-x-1">
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex items-center gap-x-1"
+      >
         <img
           src={user?.image}
           alt={`profile-${user?.firstName}`}
-          className="aspect-square w-[30px] rounded-full object-cover"
+          className="w-[30px] aspect-square rounded-full object-cover"
         />
-        <AiOutlineCaretDown className="text-sm text-richblack-100" />
-      </div>
+        <AiOutlineCaretDown className="text-md text-richblack-100" />
+      </button>
+
+      {/* Dropdown Menu */}
       {open && (
         <div
-          onClick={(e) => e.stopPropagation()}
-          className="absolute top-[118%] -right-8 z-[1000] divide-y-[1px] divide-richblack-700 overflow-hidden rounded-md border-[1px] border-richblack-700 bg-richblack-800"
-          ref={ref}
+          className="absolute right-0 top-[115%] z-[1000] w-40 min-w-max rounded-md border border-richblack-700 bg-richblack-800 text-sm divide-y divide-richblack-700 shadow-lg"
         >
-          <Link to="/dashboard/my-profile" onClick={() => setOpen(false)}>
-            <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
+          <Link
+            to="/dashboard/my-profile"
+            onClick={() => setOpen(false)}
+            className="block px-4 py-2 text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25"
+          >
+            <div className="flex items-center gap-x-2">
               <VscDashboard className="text-lg" />
               Dashboard
             </div>
           </Link>
-          <div
+
+          <button
             onClick={() => {
-              dispatch(logout(navigate))
-              setOpen(false)
+              dispatch(logout(navigate));
+              setOpen(false);
             }}
-            className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25"
+            className="w-full text-left px-4 py-2 text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25"
           >
-            <VscSignOut className="text-lg" />
-            Logout
-          </div>
+            <div className="flex items-center gap-x-2">
+              <VscSignOut className="text-lg" />
+              Logout
+            </div>
+          </button>
         </div>
       )}
-    </button>
+    </div>
   )
 }

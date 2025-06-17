@@ -53,7 +53,7 @@ export async function buyCourse(token,courses,userDetails,navigate,dispatch) {
         }
         console.log("Optoin created...........",orderResponse);
         const options = {
-            key:process.env.RAZORPAY_KEY,
+            key:process.env.REACT_APP_RAZORPAY_KEY,
             currency:orderResponse.data.message.currency,
             amount:orderResponse.data.message.price,
             order_id:orderResponse.data.message.id,
@@ -81,7 +81,7 @@ export async function buyCourse(token,courses,userDetails,navigate,dispatch) {
 
     }catch(error){
         console.log("PAYMENT API ERROR.....",error)
-        toast.error("COULT NOT MAKE OAYMERNT");
+        toast.error(error.message);
     }
     toast.dismiss(toastId);
 }

@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom'
 import RatingStars from '../../common/RatingStarts';
 import GetAvgRating from '../../../utils/avgRating'
 // import RatingStars from 'react-rating-stars-component'
-const Course_Card = ({course,Height}) => {
+const Course_Card = ({course,Height,Width}) => {
     const [avgReviewCount,setAvgReviewCount] = useState(0);
     useEffect(()=>{
         const count = GetAvgRating(course.ratingAndReviews);
         setAvgReviewCount(count);
     },[course])
   return (
-    <div>
+    <div className=''>
         <Link to={`/courses/${course._id}`} >
-            <div>
+            <div className='flex flex-wrap flex-col text-white'>
                 <div>
                     <img
                     src={course?.thumbnail}
                     alt="course Thumbnaol"
-                    className={`${Height} w-full rounded-xl object-cover    `}
+                    className={`${Height} ${Width?Width:"w-full"} rounded-xl object-cover    `}
                     />
                 </div>
                 <div>

@@ -7,7 +7,7 @@ const MyProfile = () => {
     const {user} = useSelector((state) => state.profile)
     const navigate = useNavigate();
   return (
-    <div className='mx-auto w-11/12 max-w-[1000px] py-10'>
+    <div className='mx-auto md:pr-[1%] w-11/12 h-lvh overflow-auto max-w-[1000px] py-10'>
         <div className='py-10'>
         <h1 className='mb-14 text-3xl font-medium text-richblack-5'>
             My Profile
@@ -27,6 +27,7 @@ const MyProfile = () => {
             </div>
             <div className="hidden md:block">
             <IconBtn
+            customClasses={" rounded px-2 border-sm border-2 border-richblack-5 bg-richblue-100 py-1"}
                 text="Edit"
                 onClick={ () => {
                     navigate("/dashboard/settings");
@@ -46,6 +47,7 @@ const MyProfile = () => {
                 <div >
                 <IconBtn 
                 text="Edit"
+                customClasses={"rounded px-2 border-sm border-2 border-richblack-5 bg-richblue-100 py-1"}
                 onClick={() => {
                     console.log("Edit cliked")
                     navigate("/dashboard/settings")
@@ -62,6 +64,7 @@ const MyProfile = () => {
                 <div className=''>
                 <IconBtn
                 text="Edit"
+                customClasses={"rounded px-2 border-sm border-2 border-richblack-5 bg-richblue-100 py-1"}
                 onClick={() => {
                     navigate("/dashboard/settings")
                 }} />

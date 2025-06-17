@@ -1,5 +1,5 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-
+console.log(BASE_URL);
 // AUTH ENDPOINTS
 export const endpoints = {
   SENDOTP_API: BASE_URL + "/auth/sendotp",
@@ -64,7 +64,7 @@ export const catalogData = {
 };
 // CONTACT-US API
 export const contactusEndpoint = {
-  CONTACT_US_API: BASE_URL + "/contact/contactUs",
+  CONTACT_US_API: BASE_URL + "/contact",
 };
 
 // SETTINGS PAGE API

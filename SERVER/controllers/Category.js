@@ -1,4 +1,5 @@
 const Category = require('../models/Category');
+const Course = require('../models/Course')
 // const Catagory = require('../models/Category');
 // const  
 exports.createCategory = async (req,res) => {
@@ -43,6 +44,34 @@ exports.showAllCategories = async (req,res) =>{
         return res.status(500).json({
             success:false,
             message:error.message,
+        })
+    }
+}
+
+exports.deleteCategory = async (req,res)=>{
+    try{
+        console.log()
+        const {name} = req.body;
+        console.log("HIIIIIIIIIIIIIIIIIIIIIIIIIII")
+
+        const category = await Category.findOneAndDelete({name:name});
+        //delete the courses of that category
+        if(!category){
+            return res.status(404).json({
+                success:false,
+                message:"Category not found",
+            })
+        }
+        await Course.deleteMany({category:category._id});
+        return res.status(200).json({
+            success:true,
+            message:"Category deleted successfully",
+        })
+
+    }catch(err){
+        return res.status(500).json({
+            success:false,
+            message:err.message,
         })
     }
 }

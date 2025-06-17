@@ -153,6 +153,7 @@ const SubSectionModal = ({
                     !view && (
                         <div className='flex justify-end'>
                             <IconBtn 
+                            customClasses={"rounded px-2 border-sm border-2 border-richblack-5 bg-richblue-100 py-1"}
                                 text={loading ? "Loading...": edit ? "Save Changes" : "Save"}
                             />
                         </div>

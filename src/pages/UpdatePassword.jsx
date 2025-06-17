@@ -13,8 +13,8 @@ const UpdatePassword = () => {
     const [showPassword,setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const location = useLocation();
-const password = formData.password;
-const confirmPassword = formData.confirmPassword;
+    const password = formData.password;
+    const confirmPassword = formData.confirmPassword;
     const {loading} = useSelector( (state) => state.auth );
 
     const handleOnChange = (e)=>{
